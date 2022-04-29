@@ -1,0 +1,7 @@
+#/bin/bash
+
+[ -d conjure-output ] || mkdir conjure-output
+echo $PWD > conjure-output/test.out
+echo $@ > conjure-output/in.args
+echo ls -lah
+ls -lah

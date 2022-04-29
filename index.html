@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>Teeest</title>
+  <style>
+    form {
+      display: flex;
+      flex-flow: column nowrap;
+    }
+    output {
+      white-space: pre;
+    }
+  </style>
+  <script type="module">
+    const f = document.forms.editor;
+    f.addEventListener('submit', async function(ev) {
+        ev.preventDefault();
+        f.out.textContent="Wait for it...";
+        const response = await fetch( "./conjure", {
+          method: "POST",
+          body: `${f.field.value}\x1c${f.field2.value}\x1f`
+        });
+        f.out.textContent = await response.text();
+    });
+  </script>
+</head>
+<body>
+  <h1>A title!</h1>
+  <form name="editor" method="post" action="conjure">
+    <input type="text" name="field">
+    <textarea name="field2"></textarea>
+    <input type="submit">
+    <output name="out">Output goes here</pre>
+  </form>
+</body>
+</html>
