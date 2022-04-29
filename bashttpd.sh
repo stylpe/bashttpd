@@ -67,7 +67,7 @@
 declare -r BASHTTPD_CONF="/tmp/bashttpd.conf"
 
   ### CHANGE THIS IF YOU WOULD LIKE TO LISTEN ON A DIFFERENT PORT 
-declare -i LISTEN_PORT=8080
+declare -i LISTEN_PORT="${PORT:-8080}"
 
  ## If you are on AIX, IRIX, Solaris, or a hardened system redirecting 
  ## to /dev/random will probably break, you can change it to /dev/null.  
