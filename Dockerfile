@@ -1,6 +1,7 @@
 ARG conjure_tag=2.3.0
 FROM conjurecp/conjure-runtime:$conjure_tag
 
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get install -y \
       socat \
