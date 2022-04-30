@@ -385,7 +385,9 @@ function conjure() {
  send "Conjure Output:"
  /home/runner/ConjureAsAService/conjure * >.out 
  send "::::::"
- send_body_file .out
+ send_body_file <( /
+  conjure solve -ac --solutions-in-one-file --number-of-solutions=all --solver=minion --limit-time=90 * \
+ )
 
  for fn in conjure-output/*
   do
