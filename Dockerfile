@@ -4,8 +4,8 @@ FROM conjurecp/conjure-runtime:$conjure_tag
 RUN apt-get update \
     && apt-get install -y \
       socat \
-    && apt-get upgrade -y \
-      bash \
+#    && apt-get upgrade -y \
+#      bash \
     && rm -rf /var/lib/apt/lists/*
 
 
