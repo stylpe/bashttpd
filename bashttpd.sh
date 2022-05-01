@@ -381,14 +381,12 @@ function cli() {
  add_response_header "Content-Type"  "text/plain"
  send_status_and_headers 200
 
- #send "Env:"
- #env | send_body_lines
- send "Conjure Output:"
- send "::::::"
- $cmd solve -ac --solutions-in-one-file --number-of-solutions=all --solver=minion --limit-time=90 * >.out 
- send_body_file .out
+ $cmd solve -ac --solutions-in-one-file --number-of-solutions=all --solver=minion --limit-time=90 * >.out 2>.err
+ # send "Conjure stdout:"
+ # send "::::::"
+ # send_body_file .out
 
- for fn in conjure-output/*
+ for fn in .out .err conjure-output/*
   do
   send "::::::"
   send "$fn"
