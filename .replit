@@ -1,2 +1,2 @@
 language = "bash"
-run = "bash bashttpd.sh -s"
+run = ["bash", "bashttpd.sh", "-s"]
