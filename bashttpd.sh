@@ -360,10 +360,11 @@ function read_body() {
  fi
 }
 
-function conjure() {
+function cli() {
   [ "${REQUEST_METHOD}" = "POST" ] && [ "${REQUEST_URI}" = "/conjure" ]  || return 0
 
  info "Running Conjure"
+ which conjure &>"${DISCARD_DEV}" && cmd=conjure || cmd=$PWD/conjure
  local TMPDIR=$(mktemp -d --tmpdir conjure.XXXXXXXXXX) || fail_with 500 "Unable to make temp folder: ($?) $TMPDIR"
  trap 'rm -rf "$TMPDIR"' EXIT
  pushd "$TMPDIR" >&2
@@ -383,11 +384,9 @@ function conjure() {
  #send "Env:"
  #env | send_body_lines
  send "Conjure Output:"
- /home/runner/ConjureAsAService/conjure * >.out 
  send "::::::"
- send_body_file <( /
-  conjure solve -ac --solutions-in-one-file --number-of-solutions=all --solver=minion --limit-time=90 * \
- )
+ $cmd solve -ac --solutions-in-one-file --number-of-solutions=all --solver=minion --limit-time=90 * >.out 
+ send_body_file .out
 
  for fn in conjure-output/*
   do
@@ -441,6 +440,6 @@ else
  # source "${BASHTTPD_CONF}" 
  cors
  [ "${REQUEST_METHOD}" = "GET" ]  && serve_file index.html
- conjure
+ cli
  fail_with 404
 fi 
